@@ -38,12 +38,12 @@ int main(int argc, char **argv)
     /* Open the output device */
     char *dev = argv[1];
 	
-	/* create SV instance */
-	sv_header sv;
-	/* create an empty vector of future SV frame */
-	std::vector<uint8_t> ethernetII_frame;
+    /* create SV instance */
+    sv_header sv;
+    /* create an empty vector of future SV frame */
+    std::vector<uint8_t> ethernetII_frame;
 	
-	/* Define interface-related variables */
+    /* Define interface-related variables */
     const std::string port = "eth0";
     std::vector<boost::asio::const_buffer> transmitbuffer;
     sockaddr_ll sockaddr;
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
     typedef boost::asio::generic::basic_endpoint<raw_protocol_t> raw_endpoint_t;
     boost::asio::io_service myio_service;
 	
-	/* Specify interface properties */
+    /* Specify interface properties */
     memset(&sockaddr, 0, sizeof(sockaddr));
     sockaddr.sll_family = PF_PACKET;
     sockaddr.sll_protocol = htons(ETH_P_ALL);
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
     raw_protocol_t::socket d_socket(myio_service, raw_protocol_t(PF_PACKET, SOCK_RAW));
     d_socket.bind(raw_endpoint_t(&sockaddr, sizeof(sockaddr)));
 
-	/* Define variables related to ADC conversion*/
+    /* Define variables related to ADC conversion*/
     char value_str[7];
     int current_in = 0;
     int current_out = 0;
@@ -69,25 +69,25 @@ int main(int argc, char **argv)
     FILE* f0 = NULL;
     std::fstream fs;
 
-	/* Specify P8_10 as output */
-	fs.open("/sys/kernel/debug/omap_mux/gpmc_ad4");
-	fs << "7";
-	fs.close();
-	fs.open("/sys/class/gpio/export");
-	fs << "32";
-	fs.close();
-	fs.open("/sys/class/gpio/gpio68/direction");
-	fs << "out";
-	fs.close();
-
-	bool gpio_set = false;
+    /* Specify P8_10 as output */
+    fs.open("/sys/kernel/debug/omap_mux/gpmc_ad4");
+    fs << "7";
+    fs.close();
+    fs.open("/sys/class/gpio/export");
+    fs << "32";
+    fs.close();
+    fs.open("/sys/class/gpio/gpio68/direction");
+    fs << "out";
+    fs.close();
 	
-	/* Specify distination and source MAC addresses, and APPID of a SV message */
+    bool gpio_set = false;
+	
+    /* Specify distination and source MAC addresses, and APPID of a SV message */
     std::string src_mac_address = "88:c2:55:72:8c:ef";
     std::string dst_mac_address = "00:00:00:00:00:00";
-	int APPID = 16384;	//Application ID    0d16384 = 0x4000
+    int APPID = 16384;	//Application ID    0d16384 = 0x4000
 
-	/* Read ADC0, ADC1 and ADC2 and send a SV message */
+    /* Read ADC0, ADC1 and ADC2 and send a SV message */
     for (int i = 0; i < 10; i++)
     {
         char hex_string[20];  
@@ -105,23 +105,23 @@ int main(int argc, char **argv)
         sprintf(hex_string, "0%x0%x0%x", current_in, current_out, voltage);
         sv.compose_frame(src_mac_address, dst_mac_address, APPID, std::string(hex_string));
 
-		ethernetII_frame = sv.get_ethernetII_frame();
+	ethernetII_frame = sv.get_ethernetII_frame();
 		
 
-		transmitbuffer.push_back(boost::asio::buffer((const void *)&ethernetII_frame[0], ethernetII_frame.size()));
-		d_socket.send(transmitbuffer);
-		fs.open("/sys/class/gpio/gpio68/value");
-		if (gpio_set)
-			fs << "0"; // "0" for off
-		else
-			fs << "1"; // "1" for on
-		fs.close();
-		gpio_set = !gpio_set;
-		sleep(1);
-		sv.clear_frame();
-		transmitbuffer.clear();
+	transmitbuffer.push_back(boost::asio::buffer((const void *)&ethernetII_frame[0], ethernetII_frame.size()));
+	d_socket.send(transmitbuffer);
+	fs.open("/sys/class/gpio/gpio68/value");
+	if (gpio_set)
+		fs << "0"; // "0" for off
+	else
+		fs << "1"; // "1" for on
+	fs.close();
+	gpio_set = !gpio_set;
+	sleep(1);
+	sv.clear_frame();
+	transmitbuffer.clear();
     }
-	/* Close socket */
+    /* Close socket */
     d_socket.close();
 	
 	//
@@ -158,9 +158,7 @@ int main(int argc, char **argv)
 	goose_stucture.confRev = 1;
 	goose_stucture.ndsComflag = false;
 
-	//goose.initialize_frame("90:2E:16:2E:70:AD", "88:C2:55:72:8C:EF", goose_stucture);	
-	//goose.initialize_frame("90:2E:16:2E:70:AD", "00:60:37:12:34:56", goose_stucture);
-	goose.initialize_frame("90:2E:16:2E:70:AC", "00:60:37:12:34:56", goose_stucture);
+	goose.initialize_frame("88:c2:55:72:8c:ef", "00:00:00:00:00:00", goose_stucture);
 	goose.set_goose_numDatSetEntries(6);			
 	goose.set_goose_allData_ID();				
 	goose.set_goose_value_type_int(1234);		
