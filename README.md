@@ -19,3 +19,6 @@ Note that in the existing scenario (defined in the "BBB_SV-GOOSE/source/main.cpp
 
 If you want to run another scenario, you need to change "main.cpp" file only.
 
+# Screenshot of the build process (for some one, just in case)
+![alt text](https://github.com/mrv-king/BBB_SV-GOOSE/blob/main/build_BBB.PNG)
+
