@@ -9,6 +9,7 @@ This code is about how to build a BeagleBone Black executable file of an applica
 5. When it is done, run application, i.e. "sudo ./iec61850 eth0"
 
 Please not that in the existing scenario (defined in "BBB_SV-GOOSE/source/main.cpp" file the BBB will send 10 SV messages with a delay of 1 sec), i.e.
+
 ![alt text](https://github.com/mrv-king/BBB_SV-GOOSE/blob/main/SV_BBB.PNG)
 
 If you want to run another scenario, you need to change "main.cpp" file only
