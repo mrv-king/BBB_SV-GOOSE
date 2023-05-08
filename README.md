@@ -1,6 +1,10 @@
 # About
 This code is about how to build a BeagleBone Black executable file of an application that sends IEC 61850-related SV or GOOSE messages through the eth0 interface.
 
+# Prerequisites
+1. cmake. To install it, run: "sudo apt-get install cmake"
+2. libbost. To install it, run: "sudo apt-get install libboost-all-dev"
+
 # How to build
 1. copy "BBB_SV-GOOSE" folder on your BBB.
 2. go to "~/BBB_SV-GOOSE/build" folder (if it is lokated in root), i.e. "cd ~/BBB_SV-GOOSE/build".
