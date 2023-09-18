@@ -11,7 +11,7 @@ To build the app on a BeagleBone device, make sure the following components are 
 1. SSH into the BeagleBone Black (for example PuTTY)
 2. copy "BBB_SV-GOOSE" folder on your BBB.
 3. go to "~/BBB_SV-GOOSE/build" folder (if it is lokated in root), i.e. "cd ~/BBB_SV-GOOSE/build".
-4. run make, i.e. "make .."
+4. run make, i.e. "cmake .."
 5. If make is finished successfully (iec61850 target is built), change its mode, i.e. "sudo chmod +x iec61850"
 6. When it is done, run application, i.e. "sudo ./iec61850 eth0"
 7. On your host machine (from which you SSH the BeagelBone) run the Wireshark application you should be able to see SV or GOOSE messages.
