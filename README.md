@@ -16,7 +16,8 @@ To build the app on a BeagleBone device, make sure the following components are 
 6. When it is done, run application, i.e. "sudo ./iec61850 eth0"
 7. On your host machine (from which you SSH the BeagelBone) run the Wireshark application you should be able to see SV or GOOSE messages.
 
-Note that in the existing scenario (defined in the "BBB_SV-GOOSE/source/main.cpp" file, the BBB will send 10 SV messages with a delay of 1 second), i.e.
+>[!NOTE]
+> Note that in the existing scenario (defined in the "BBB_SV-GOOSE/source/main.cpp" file, the BBB will send 10 SV messages with a delay of 1 second), i.e.
 
 ![alt text](https://github.com/mrv-king/BBB_SV-GOOSE/blob/main/SV_BBB.PNG)
 
